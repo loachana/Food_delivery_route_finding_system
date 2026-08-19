@@ -1,0 +1,6 @@
+%Initializing
+
+:-
+    write('hello').
+
+
