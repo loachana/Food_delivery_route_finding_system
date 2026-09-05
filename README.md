@@ -4,5 +4,7 @@ Under construction.
 
 Group 10
 
-<small>All Rights Recerved</small>
+
+
+<small>The content is AI generated. Content must be used only for reference.</small>
 
