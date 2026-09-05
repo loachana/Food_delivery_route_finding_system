@@ -1,0 +1,457 @@
+# Route-Finding System Using Prolog
+
+## 1. Introduction
+
+Route finding is an important problem in many real-world applications such as GPS navigation, transportation management, delivery services, emergency response systems, and public transportation. The main objective of a route-finding system is to determine a suitable path between a starting location and a destination while considering factors such as distance, travel cost, and road availability.
+
+In this project, a route-finding system is designed and implemented using the Prolog programming language. The road network is represented as a graph where locations are represented as nodes and roads are represented as connections between nodes. The system implements three search algorithms: Breadth-First Search (BFS), Depth-First Search (DFS), and A* Search.
+
+The system also considers realistic conditions by allowing roads to be marked as blocked. A blocked road cannot be used when calculating a route. In addition, the system calculates the total distance of a selected route so that different algorithms can be compared according to their resulting paths and costs.
+
+The project demonstrates how artificial intelligence search techniques can be applied to solve a practical transportation problem using a logic programming language.
+
+---
+
+## 2. Problem Statement
+
+In a real-world transportation network, there can be several possible routes between two locations. Some routes may be shorter than others, while some roads may be unavailable because of construction, accidents, floods, traffic restrictions, or other reasons.
+
+A simple route-finding system that does not consider these conditions may produce an unsuitable or impossible route.
+
+Therefore, the problem addressed by this project is:
+
+**"Design and implement a route-finding system using Prolog that finds routes between two locations using BFS, DFS, and A* search algorithms while handling blocked roads and calculating the total distance or cost of each route."**
+
+The system should satisfy the following requirements:
+
+* Represent locations and roads using Prolog facts.
+* Find a route between a starting location and destination.
+* Implement Depth-First Search.
+* Implement Breadth-First Search.
+* Implement A* Search.
+* Avoid blocked roads.
+* Calculate the total distance of a route.
+* Compare the routes produced by the three algorithms.
+* Identify an appropriate route based on distance and search strategy.
+
+---
+
+## 3. Objectives
+
+The main objectives of the project are:
+
+1. To develop a real-world route-finding system using Prolog.
+2. To represent a road network using a graph structure.
+3. To implement DFS, BFS, and A* search algorithms.
+4. To handle blocked roads in the road network.
+5. To calculate the total distance of a selected route.
+6. To compare the performance and results of different search algorithms.
+7. To demonstrate the use of Prolog for solving artificial intelligence search problems.
+
+---
+
+# 4. Proposed Solution
+
+## 4.1 System Overview
+
+The proposed system represents a transportation network as a graph.
+
+Each location is represented as a node, while each road between two locations is represented as an edge. Each road also has a distance associated with it.
+
+For example:
+
+```text
+              Kandy
+             /     \
+          80 km    120 km
+           /         \
+      Colombo ---- Nuwara Eliya
+          |              |
+       150 km           70 km
+          |              |
+         Galle ----------
+```
+
+The system can receive a starting location and a destination from the user. It then uses the selected search algorithm to find an appropriate route.
+
+The system also checks whether roads are blocked before using them.
+
+---
+
+## 4.2 Knowledge Representation
+
+The road network can be represented in Prolog using facts.
+
+Example:
+
+```prolog
+road(kandy, colombo, 80).
+road(kandy, nuwaraeliya, 120).
+road(colombo, nuwaraeliya, 100).
+road(colombo, galle, 150).
+road(nuwaraeliya, galle, 70).
+```
+
+The structure is:
+
+```prolog
+road(Source, Destination, Distance).
+```
+
+For example:
+
+```prolog
+road(kandy, colombo, 80).
+```
+
+means that there is a road from Kandy to Colombo with a distance of 80 km.
+
+---
+
+## 4.3 Handling Blocked Roads
+
+Real-world roads can become unavailable. Therefore, the system uses a `blocked/2` predicate.
+
+Example:
+
+```prolog
+blocked(colombo, galle).
+```
+
+This indicates that the road from Colombo to Galle is currently blocked.
+
+An available road can be defined as:
+
+```prolog
+road_available(A, B, Distance) :-
+    road(A, B, Distance),
+    \+ blocked(A, B).
+```
+
+The `\+` operator is used to ensure that the road is not known to be blocked.
+
+Therefore, if:
+
+```prolog
+blocked(colombo, galle).
+```
+
+is present, the system will not select the Colombo-Galle road.
+
+---
+
+# 5. Depth-First Search
+
+Depth-First Search explores one possible route as deeply as possible before backtracking.
+
+The basic implementation is:
+
+```prolog
+dfs(Start, Goal, Path) :-
+    dfs(Start, Goal, [Start], Path).
+
+dfs(Goal, Goal, Visited, Path) :-
+    reverse(Visited, Path).
+
+dfs(Current, Goal, Visited, Path) :-
+    road_available(Current, Next, _),
+    \+ member(Next, Visited),
+    dfs(Next, Goal, [Next|Visited], Path).
+```
+
+The algorithm starts at the source location and selects an available neighboring location. It continues exploring until the destination is reached.
+
+The `member/2` predicate is used to prevent the algorithm from visiting the same location repeatedly.
+
+### Example
+
+Query:
+
+```prolog
+?- dfs(kandy, galle, Path).
+```
+
+Possible result:
+
+```text
+Path = [kandy, colombo, galle]
+```
+
+However, DFS does not guarantee that the resulting route has the minimum distance.
+
+---
+
+# 6. Breadth-First Search
+
+Breadth-First Search explores locations level by level.
+
+For example:
+
+```text
+Level 0:
+Kandy
+
+Level 1:
+Colombo
+Nuwara Eliya
+
+Level 2:
+Galle
+```
+
+A simplified implementation is:
+
+```prolog
+bfs(Start, Goal, Path) :-
+    bfs_queue([[Start]], Goal, Path).
+
+bfs_queue([[Goal|Rest]|_], Goal, Path) :-
+    reverse([Goal|Rest], Path).
+
+bfs_queue([[Current|Rest]|Queue], Goal, Path) :-
+    findall(
+        [Next, Current|Rest],
+        (
+            road_available(Current, Next, _),
+            \+ member(Next, [Current|Rest])
+        ),
+        NewPaths
+    ),
+    append(Queue, NewPaths, UpdatedQueue),
+    bfs_queue(UpdatedQueue, Goal, Path).
+```
+
+BFS uses a queue to store possible paths.
+
+Unlike DFS, BFS explores all paths at the current depth before moving to a deeper level.
+
+BFS finds a path with the minimum number of edges when the graph is unweighted or when all edges have equal cost. However, it does not necessarily find the shortest route by distance when roads have different distances.
+
+---
+
+# 7. A* Search
+
+A* Search is a cost-based search algorithm that uses both the cost already travelled and an estimated cost to the destination.
+
+The evaluation function is:
+
+```text
+f(n) = g(n) + h(n)
+```
+
+where:
+
+* `g(n)` is the actual cost from the starting location to node `n`.
+* `h(n)` is the estimated cost from node `n` to the destination.
+* `f(n)` is the estimated total cost.
+
+For example:
+
+```text
+g(n) = 100 km
+h(n) = 50 km
+
+f(n) = 100 + 50
+     = 150 km
+```
+
+A* selects the node with the lowest estimated total cost.
+
+A heuristic can be represented in Prolog as:
+
+```prolog
+heuristic(kandy, galle, 150).
+heuristic(colombo, galle, 100).
+heuristic(nuwaraeliya, galle, 70).
+```
+
+The heuristic helps A* determine which direction is more promising.
+
+A* is particularly useful for route-finding because road networks normally have different distances or costs.
+
+---
+
+# 8. Cost Calculation
+
+The total distance of a route can be calculated using recursion.
+
+```prolog
+calculate_cost([_], 0).
+
+calculate_cost([A,B|Rest], Cost) :-
+    road_available(A, B, Distance),
+    calculate_cost([B|Rest], RemainingCost),
+    Cost is Distance + RemainingCost.
+```
+
+For example, consider:
+
+```text
+Kandy → Colombo → Galle
+```
+
+with:
+
+```text
+Kandy → Colombo = 80 km
+Colombo → Galle = 150 km
+```
+
+The total distance is:
+
+```text
+80 + 150 = 230 km
+```
+
+Therefore:
+
+```text
+Total Cost = 230 km
+```
+
+The first clause:
+
+```prolog
+calculate_cost([_], 0).
+```
+
+means that when only one location remains, there are no more roads to travel, so the remaining cost is zero.
+
+---
+
+# 9. Example Scenario
+
+Consider the following road network:
+
+| Road                   | Distance |
+| ---------------------- | -------: |
+| Kandy → Colombo        |    80 km |
+| Kandy → Nuwara Eliya   |   120 km |
+| Colombo → Nuwara Eliya |   100 km |
+| Colombo → Galle        |   150 km |
+| Nuwara Eliya → Galle   |    70 km |
+
+Suppose the road:
+
+```text
+Colombo → Galle
+```
+
+is blocked.
+
+The system must therefore avoid that road.
+
+Possible routes include:
+
+```text
+Kandy → Colombo → Nuwara Eliya → Galle
+```
+
+and
+
+```text
+Kandy → Nuwara Eliya → Galle
+```
+
+The second route has a total distance of:
+
+```text
+120 + 70 = 190 km
+```
+
+Therefore, the second route is shorter.
+
+---
+
+# 10. Algorithm Comparison
+
+The algorithms can be compared using the following table.
+
+| Feature                     | DFS           | BFS            | A*                           |
+| --------------------------- | ------------- | -------------- | ---------------------------- |
+| Search strategy             | Deep first    | Level by level | Cost + heuristic             |
+| Uses heuristic              | No            | No             | Yes                          |
+| Considers road cost         | No            | No             | Yes                          |
+| Minimum number of edges     | No guarantee  | Yes            | Not necessarily              |
+| Shortest weighted route     | No guarantee  | No guarantee   | Yes, with suitable heuristic |
+| Memory usage                | Generally low | Generally high | Can be high                  |
+| Suitable for weighted roads | Less suitable | Less suitable  | Highly suitable              |
+
+### Example comparison
+
+Suppose the algorithms produce:
+
+| Algorithm | Route                                  | Total Distance |
+| --------- | -------------------------------------- | -------------: |
+| DFS       | Kandy → Colombo → Nuwara Eliya → Galle |         250 km |
+| BFS       | Kandy → Colombo → Nuwara Eliya → Galle |         250 km |
+| A*        | Kandy → Nuwara Eliya → Galle           |         190 km |
+
+In this example, A* produces the shortest route based on distance.
+
+The result demonstrates that the choice of search algorithm can affect the quality of the route.
+
+---
+
+# 11. Advantages of the Proposed System
+
+The proposed system has several advantages:
+
+* It can find routes between different locations.
+* It supports multiple search algorithms.
+* It can avoid blocked roads.
+* It calculates total route distance.
+* It demonstrates practical use of artificial intelligence algorithms.
+* It can be extended by adding more locations and roads.
+* Additional factors such as traffic, fuel consumption, and travel time can be incorporated in the future.
+
+---
+
+# 12. Limitations
+
+The current system has some limitations:
+
+1. The road network is manually entered into the Prolog knowledge base.
+2. Real-time traffic information is not considered.
+3. The heuristic values for A* must be appropriately defined.
+4. Travel time and fuel consumption are not currently included.
+5. The system does not obtain live road information from an external map service.
+
+These limitations can be addressed in future versions.
+
+---
+
+# 13. Future Improvements
+
+The system can be improved by introducing:
+
+* Real-time traffic information.
+* Travel time as an additional cost.
+* Fuel consumption calculations.
+* Multiple types of transportation.
+* Dynamic road closures.
+* A graphical user interface.
+* Integration with real-world map data.
+* Automatic heuristic calculation using geographical coordinates.
+* Alternative routes when the preferred route becomes unavailable.
+
+---
+
+# 14. Conclusion
+
+This project successfully demonstrates the design of a route-finding system using Prolog. The system represents a road network as a graph and implements three important artificial intelligence search algorithms: DFS, BFS, and A*.
+
+The system also handles a realistic constraint by allowing roads to be marked as blocked. This prevents the search algorithms from selecting unavailable roads. In addition, the total distance of each route can be calculated and used to compare the results of different algorithms.
+
+DFS provides a simple depth-based search approach, while BFS is useful for finding paths with the minimum number of edges. However, because real-world roads have different distances, A* is more appropriate when route cost needs to be optimized. A* uses both the actual cost and an estimated cost to the destination to efficiently search for a low-cost route.
+
+Overall, the project demonstrates how Prolog and artificial intelligence search techniques can be applied to solve a practical route-finding problem. The system can be further enhanced by incorporating real-time traffic, travel time, fuel consumption, and geographical information.
+
+---
+
+# 15. References
+
+1. Russell, S. J., & Norvig, P. *Artificial Intelligence: A Modern Approach*. Pearson.
+2. Sterling, L., & Shapiro, E. *The Art of Prolog*. MIT Press.
+3. SWI-Prolog Documentation.
+4. Course lecture notes on Artificial Intelligence and Search Algorithms.
