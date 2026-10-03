@@ -1,258 +1,223 @@
-%Road facts
-road(kandy, peradeniya, 6.2).
-road(kandy, katugastota, 4.4).
+%roads
+
+road(kandy, katugastota, 5.4).
+road(kandy, peradeniya, 6.1).
 road(kandy, tennakumbura, 7.7).
 road(kandy, ampitiya, 5.2).
 road(kandy, kundasale, 7.0).
 road(kandy, getambe, 5.5).
 road(kandy, mahaiyawa, 2.5).
-road(kandy, asgiriya, 1.7).
-road(kandy, anniewatta, 4.1).
-road(kandy, watapuluwa, 5.0).
-road(kandy, mawilmada, 5.3).
-road(kandy, lewella, 3.4).
-road(kandy, suduhumpola, 3.5).
-road(kandy, heerassagala, 5.5).
-road(kandy, hantana, 6.0).
-road(kandy, rajapihilla, 3.2).
-road(kandy, bogambara, 1.5).
-road(kandy, thalwatta, 3.8).
-road(kandy, polgolla, 4.5).
-road(kandy, nittawela, 3.5).
+road(katugastota, mahaiyawa, 2.0).
 
-road(peradeniya, getambe, 2.5).
-road(peradeniya, pilimathalawa, 4.8).
-road(peradeniya, kiribathkumbura, 3.2).
-road(peradeniya, gelioya, 5.5).
-road(peradeniya, daulagala, 4.7).
-road(peradeniya, mahakanda, 5.0).
-road(peradeniya, heerassagala, 5.8).
-road(peradeniya, anniewatta, 5.0).
-road(peradeniya, suduhumpola, 4.0).
-road(peradeniya, haloluwa, 6.0).
-road(peradeniya, embekke, 8.5).
-road(peradeniya, uda_peradeniya, 2.8).
-road(peradeniya, mahaweli, 4.5).
-road(peradeniya, danture, 7.5).
-road(peradeniya, kirimetiya, 6.5).
 
-road(katugastota, akurana, 5.5).
-road(katugastota, madawala, 6.3).
-road(katugastota, sirimalwatta, 4.5).
-road(katugastota, polgolla, 4.0).
-road(katugastota, wattegama, 8.5).
-road(katugastota, yatiwatte, 7.0).
-road(katugastota, mawilmada, 3.5).
-road(katugastota, nittawela, 3.2).
-road(katugastota, asgiriya, 4.2).
-road(katugastota, mahaiyawa, 3.0).
-road(katugastota, harispattuwa, 4.5).
-road(katugastota, uduwawala, 6.5).
-road(katugastota, alawatugoda, 8.8).
-road(katugastota, galagedara, 9.5).
-road(katugastota, gannoruwa, 7.0).
+%H values
+h(katugastota, 0).
+h(kandy, 4.5).
+h(peradeniya, 10.5).
+h(tennakumbura, 10.8).
+h(ampitiya, 8.2).
+h(kundasale, 9.5).
+h(getambe, 7.5).
+h(mahaiyawa, 2.0).
 
-road(tennakumbura, kundasale, 4.5).
-road(tennakumbura, lewella, 3.2).
-road(tennakumbura, ampitiya, 4.0).
-road(tennakumbura, gurudeniya, 5.5).
-road(tennakumbura, sirimalwatta, 4.8).
-road(tennakumbura, rajawella, 7.5).
-road(tennakumbura, digana, 9.5).
-road(tennakumbura, pallekele, 9.0).
-road(tennakumbura, udawela, 6.5).
-road(tennakumbura, rajapihilla, 5.0).
-road(tennakumbura, thalwatta, 3.8).
-road(tennakumbura, lewella_junction, 3.5).
-road(tennakumbura, haragama, 7.5).
-road(tennakumbura, karalliyadda, 8.5).
-road(tennakumbura, kundasale_junction, 5.0).
 
-road(ampitiya, hanthana, 5.0).
-road(ampitiya, suduhumpola, 4.5).
-road(ampitiya, rajapihilla, 3.5).
-road(ampitiya, lewella, 5.5).
-road(ampitiya, gurudeniya, 5.0).
-road(ampitiya, thalwatta, 3.8).
-road(ampitiya, mahaiyawa, 5.5).
-road(ampitiya, hewawissa, 6.5).
-road(ampitiya, kundasale, 8.0).
-road(ampitiya, talwatte, 4.0).
-road(ampitiya, bowalawatta, 6.5).
-road(ampitiya, ulpathakumbura, 3.5).
-road(ampitiya, palliyawatta, 4.5).
-road(ampitiya, waratenna, 7.5).
-road(ampitiya, embekke, 9.0).
+:- dynamic(blocked/2).
 
-road(kundasale, rajawella, 4.5).
-road(kundasale, menikhinna, 6.5).
-road(kundasale, pallekele, 5.5).
-road(kundasale, sirimalwatta, 3.5).
-road(kundasale, digana, 8.0).
-road(kundasale, karalliyadda, 7.5).
-road(kundasale, haragama, 6.5).
-road(kundasale, polgolla, 7.0).
-road(kundasale, madawala, 8.5).
-road(kundasale, gurudeniya, 7.0).
-road(kundasale, rajawella_junction, 5.0).
-road(kundasale, udawela, 6.0).
-road(kundasale, balagolla, 7.5).
-road(kundasale, kandy, 7.0).
-road(kundasale, tennakumbura, 4.5).
+list_blocked :-
+    forall(
+        blocked(A, B),
+        (write(A-B), nl)
+    ).
 
-road(mahaiyawa, asgiriya, 2.0).
-road(mahaiyawa, nittawela, 3.0).
-road(mahaiyawa, mawilmada, 3.5).
-road(mahaiyawa, watapuluwa, 5.0).
-road(mahaiyawa, suduhumpola, 3.5).
-road(mahaiyawa, anniewatta, 2.8).
-road(mahaiyawa, haloluwa, 4.5).
-road(mahaiyawa, polgolla, 4.0).
-road(mahaiyawa, dodanwala, 6.0).
-road(mahaiyawa, katugastota, 3.0).
-road(mahaiyawa, bogambara, 2.5).
-road(mahaiyawa, kandy, 2.5).
-road(mahaiyawa, yatinuwara, 4.5).
-road(mahaiyawa, arangala, 6.5).
-road(mahaiyawa, uduwawala, 7.0).
 
-road(asgiriya, anniewatta, 2.5).
-road(asgiriya, suduhumpola, 2.5).
-road(asgiriya, nittawela, 3.5).
-road(asgiriya, watapuluwa, 5.0).
-road(asgiriya, mawilmada, 4.5).
-road(asgiriya, haloluwa, 4.0).
-road(asgiriya, bogambara, 1.5).
-road(asgiriya, rajapihilla, 3.0).
-road(asgiriya, thalwatta, 4.5).
-road(asgiriya, dodanwala, 5.5).
-road(asgiriya, mawilmada_junction, 4.0).
-road(asgiriya, mahaiyawa, 2.0).
-road(asgiriya, katugastota, 4.2).
-road(asgiriya, wattegama, 8.5).
-road(asgiriya, kandy, 1.7).
+connected(A,B,D):-
+    road(A,B,D), \+blocked(A,B).
 
-road(anniewatta, suduhumpola, 2.0).
-road(anniewatta, mahaiyawa, 2.8).
-road(anniewatta, asgiriya, 2.5).
-road(anniewatta, heerassagala, 5.5).
-road(anniewatta, getambe, 4.5).
-road(anniewatta, haloluwa, 4.0).
-road(anniewatta, mawilmada, 5.0).
-road(anniewatta, watapuluwa, 6.0).
-road(anniewatta, bogambara, 3.0).
-road(anniewatta, rajapihilla, 4.5).
-road(anniewatta, peradeniya, 5.0).
-road(anniewatta, yatinuwara, 6.0).
-road(anniewatta, arangala, 7.5).
-road(anniewatta, kandy, 4.1).
-road(anniewatta, katugastota, 5.0).
+connected(A,B,D):-
+    road(B,A,D), \+blocked(B,A).
 
-road(lewella, rajapihilla, 4.0).
-road(lewella, kundasale, 5.0).
-road(lewella, sirimalwatta, 4.5).
-road(lewella, gurudeniya, 5.0).
-road(lewella, thalwatta, 3.5).
-road(lewella, rajawella, 7.0).
-road(lewella, udawela, 6.0).
-road(lewella, ampitiya, 5.5).
-road(lewella, tennakumbura, 3.2).
-road(lewella, kandy, 3.4).
-road(lewella, nittawela, 4.0).
-road(lewella, watapuluwa, 5.5).
-road(lewella, polgolla, 5.0).
-road(lewella, madawala, 8.5).
-road(lewella, digana, 9.0).
+%DFS
 
-road(getambe, peradeniya, 2.5).
-road(getambe, kandy, 5.5).
-road(getambe, heerassagala, 5.0).
-road(getambe, pilimathalawa, 6.5).
-road(getambe, kiribathkumbura, 4.0).
-road(getambe, gelioya, 6.5).
-road(getambe, daulagala, 5.5).
-road(getambe, gannoruwa, 4.5).
-road(getambe, mahakanda, 6.0).
-road(getambe, anniewatta, 4.5).
-road(getambe, haloluwa, 6.5).
-road(getambe, suduhumpola, 4.0).
-road(getambe, mahaiyawa, 5.0).
-road(getambe, katugastota, 8.9).
-road(getambe, embekke, 9.5).
+dfs_path(Start, Goal, Path, Cost):-
+	dfs_travel(Start, Goal, [Start], RevPath, 0, Cost),
+	reverse(RevPath, Path).
 
-road(heerassagala, peradeniya, 5.8).
-road(heerassagala, getambe, 5.0).
-road(heerassagala, anniewatta, 5.5).
-road(heerassagala, hanthana, 4.5).
-road(heerassagala, bowalawatta, 6.0).
-road(heerassagala, kandy, 5.5).
-road(heerassagala, suduhumpola, 4.5).
-road(heerassagala, mahaiyawa, 6.0).
-road(heerassagala, ampitiya, 7.0).
-road(heerassagala, kiribathkumbura, 7.5).
+dfs_travel(Node, Node, Path, Path, Cost, Cost).
+dfs_travel(Current, Goal, Visited, Path, CostSoFar, Cost):-
+	connected(Current, Next, StepCost),
+	\+ member(Next, Visited),
+	NewCost is CostSoFar + StepCost,
+	dfs_travel(Next, Goal, [Next|Visited], Path, NewCost, Cost).
 
-road(gurudeniya, tennakumbura, 5.5).
-road(gurudeniya, ampitiya, 5.0).
-road(gurudeniya, kundasale, 7.0).
-road(gurudeniya, lewella, 5.0).
-road(gurudeniya, rajawella, 8.0).
-road(gurudeniya, haragama, 6.0).
-road(gurudeniya, digana, 9.5).
-road(gurudeniya, pallekele, 8.5).
-road(gurudeniya, embekke, 7.5).
-road(gurudeniya, kandy, 7.5).
+%BFS
 
-road(pallekele, kundasale, 5.5).
-road(pallekele, digana, 6.5).
-road(pallekele, rajawella, 4.0).
-road(pallekele, balagolla, 5.0).
-road(pallekele, haragama, 6.0).
-road(pallekele, tennakumbura, 9.0).
-road(pallekele, gurudeniya, 8.5).
-road(pallekele, sirimalwatta, 5.5).
-road(pallekele, madawala, 7.5).
-road(pallekele, embekke, 9.5).
+bfs(Start, Goal, Path, Cost):-
+	bfs_queue([[Start]], Goal, RevPath),
+	reverse(RevPath, Path),
+	path_cost(Path,Cost).
 
-road(digana, rajawella, 4.5).
-road(digana, pallekele, 6.5).
-road(digana, kundasale, 8.0).
-road(digana, madawala, 8.5).
-road(digana, balagolla, 5.5).
-road(digana, haragama, 6.5).
-road(digana, sirimalwatta, 7.0).
-road(digana, tennakumbura, 9.5).
-road(digana, gurudeniya, 9.5).
-road(digana, kundasale_junction, 8.5).
+bfs_queue([[Goal|Rest]|_], Goal, [Goal|Rest]).
+bfs_queue([[Current|Rest]|Other], Goal, Path) :-
+	findall([Next,Current|Rest],
+	(connected(Current, Next, _),
+	\+ member(Next, [Current|Rest])),
+	NewPaths),
+	append(Other, NewPaths, Updated),
+	bfs_queue(Updated, Goal, Path).
 
-road(madawala, katugastota, 6.3).
-road(madawala, kundasale, 8.5).
-road(madawala, digana, 8.5).
-road(madawala, balagolla, 5.0).
-road(madawala, sirimalwatta, 6.0).
-road(madawala, wattegama, 8.5).
-road(madawala, haragama, 7.0).
-road(madawala, polgolla, 7.5).
-road(madawala, akurana, 7.0).
-road(madawala, pallekele, 7.5).
 
-road(sirimalwatta, kundasale, 3.5).
-road(sirimalwatta, tennakumbura, 4.8).
-road(sirimalwatta, lewella, 4.5).
-road(sirimalwatta, madawala, 6.0).
-road(sirimalwatta, pallekele, 5.5).
-road(sirimalwatta, digana, 7.0).
-road(sirimalwatta, balagolla, 6.0).
-road(sirimalwatta, rajawella, 6.5).
-road(sirimalwatta, gurudeniya, 5.5).
-road(sirimalwatta, ampitiya, 6.0).
+%path cost finder
 
-road(haloluwa, peradeniya, 6.0).
-road(haloluwa, getambe, 6.5).
-road(haloluwa, anniewatta, 4.0).
-road(haloluwa, mahaiyawa, 4.5).
-road(haloluwa, asgiriya, 4.0).
-road(haloluwa, mawilmada, 5.0).
-road(haloluwa, watapuluwa, 5.5).
-road(haloluwa, katugastota, 6.0).
-road(haloluwa, polgolla, 7.0).
-road(haloluwa, kandy, 6.0).
+path_cost([_],0).
+path_cost([A,B|Rest],Cost):-
+	connected(A,B,D),
+	path_cost([B|Rest],CostRest),
+	Cost is D + CostRest.
+
+
+%A*
+astar(Start, Goal, Path, Cost):-
+	h(Start, H0),
+	astar_search([[H0,0,[Start]]], Goal, RevPath, Cost),
+	reverse(RevPath, Path).
+
+astar_search([[_,Cost,[Goal|Rest]]|_], Goal, [Goal|Rest], Cost).
+astar_search([[_,G,[Current|Rest]]|Others], Goal, Path, Cost):-
+	findall([F2, G2,[Next,Current|Rest]],
+		(connected(Current, Next, StepCost),
+		\+ member(Next,[Current|Rest]),
+		G2 is G + StepCost,
+		h(Next,H),
+		F2 is G2 + H),
+		Children),
+	append(Others, Children, All),
+	sort(All,Sorted),
+	astar_search(Sorted,Goal,Path,Cost).
+
+
+
+
+%Display results
+
+show_all_paths(Start, Goal):-
+    nl, 
+    write('DFS results'), nl,
+	findall([Pdfs,Cdfs],dfs_path(Start, Goal, Pdfs, Cdfs), DfsPaths),
+    display_paths(DfsPaths), nl,
+    write('BFS results'), nl,
+    findall([Pbfs,Cbfs],bfs(Start, Goal, Pbfs, Cbfs), BfsPaths),
+    display_paths(BfsPaths), nl,
+    write('A* results'), nl,
+    findall([Pa,Ca], astar(Start, Goal, Pa, Ca), APaths),
+    display_paths(APaths),
+
+    %----------------------------------------------
+    %need to study
+
+    % Combine results from all algorithms
+    append(DfsPaths, BfsPaths, TempPaths),
+    append(TempPaths, APaths, AllPaths),
+
+    % Find overall shortest path
+    shortest_path(AllPaths, ShortestPath, ShortestCost),
+
+    nl,
+    write('===== OVERALL SHORTEST ROUTE ====='), nl,
+    write('Path: '), write(ShortestPath), nl,
+    write('Distance: '), write(ShortestCost), write(' km'), nl.
+
+    %--------------------------------------------------
+
+
+
+
+display_paths([]).
+display_paths([[P,C]|Rest]) :-
+	write('Path= '), write(P), nl,
+	write(' cost= '), write(C), nl, nl,
+	display_paths(Rest).
+
+
+%-------------------------------------------------------
+%need to study
+% Find path with the smallest distance
+shortest_path([[Path, Cost] | Rest], ShortestPath, ShortestCost) :-
+    shortest_path(Rest, Path, Cost, ShortestPath, ShortestCost).
+
+shortest_path([], Path, Cost, Path, Cost).
+
+shortest_path([[Path, Cost] | Rest],
+              CurrentPath, CurrentCost,
+              ShortestPath, ShortestCost) :-
+
+    ( Cost < CurrentCost ->
+        NewPath = Path,
+        NewCost = Cost
+    ;
+        NewPath = CurrentPath,
+        NewCost = CurrentCost
+    ),
+
+    shortest_path(Rest,
+                  NewPath,
+                  NewCost,
+                  ShortestPath,
+                  ShortestCost).
+
+%----------------------------------------------
+
+
+%--------------Interface-----------------------
+
+menu:-
+
+    nl, write('====== Food Delivery Route Finding System ======='), nl,
+    write('1. Find path: '), nl,
+    write('2. Block a road: '), nl,
+    write('3. Unblock a road: '), nl,
+    write('4. View blocked roads: '), nl,
+    write('5. Exit'), nl,
+    nl, write('Enter your choice: '),
+    read(Choice),
+    handle(Choice).
+    
+handle(1):-
+    nl, write('Enter start location: '),
+    read(Start),
+    nl, write('Enter destination: '),
+    read(Goal),
+    show_all_paths(Start, Goal), menu ; nl, write('invalid input'), !, nl,
+    menu.
+
+handle(2):-
+    nl, write('Enter the starting location of the road to block: '),
+    read(Start),
+    nl, write('Enter the ending location of the road to block: '),
+    read(End),
+    assertz(blocked(Start, End)),
+    assertz(blocked(End, Start)),
+    nl, write(Start - End), write(': Road blocked successfully.'), nl,
+    menu.
+
+handle(3):-
+    nl, write('Enter the starting location of the road to unblock: '),
+    read(Start),
+    nl, write('Enter the ending location of the road to unblock: '),
+    read(End),
+    retractall(blocked(Start, End)),
+    retractall(blocked(End, Start)),
+    nl, write(Start - End), write(': Road unblocked successfully.'), nl,
+    menu.
+
+handle(4):-
+    nl, write('Blocked roads details:'), nl, nl,
+    list_blocked,
+    menu.
+
+handle(5):-
+    nl, write('Exiting the program. Goodbye!'), nl.
+
+handle(_):-
+    nl, write('Invalid choice. Please try again.'), nl,
+    menu.
+
